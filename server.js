@@ -36,3 +36,8 @@ var apiRoutes = express.Router();
 
 // connect the api routes under /api/*
 app.use('/api', apiRoutes);
+
+// demo Route (GET http://localhost:8080)
+app.get('/', function (req, res) {
+    res.send('Hello! The API is at http://localhost:' + port + '/api');
+});
