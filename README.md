@@ -6,9 +6,11 @@ This project uses MEAN stack for development.
 * Express.js
 * Angular.js
 * MongoDB
+
 ### Prerequisites Installation 
 * Node.js
 * MongoDB (local)
+
 ### Installation
 ```
     npm install
@@ -16,6 +18,7 @@ This project uses MEAN stack for development.
 ```
 ### Server Info
 http://localhost:8080
+
 ### Author
 * Anuj Parikh
 
