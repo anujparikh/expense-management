@@ -6,6 +6,7 @@ var User = require('../models/user');
 var Expense = require('../models/expense');
 var updateUtil = require('../helpers/update');
 var tokenUtil = require('../helpers/token');
+var dateUtil = require('../helpers/date');
 var config = require('../config/database');
 var apiRoutes = express.Router();
 
@@ -16,6 +17,7 @@ var apiRoutes = express.Router();
  * @method: post
  */
 apiRoutes.get('/', passport.authenticate('jwt', {session: false}), function (req, res) {
+
     var token = tokenUtil.getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
@@ -41,7 +43,19 @@ apiRoutes.get('/', passport.authenticate('jwt', {session: false}), function (req
                         }
                     });
                 } else if (user.role === 'R') {
-                    Expense.find({user: user._id}, function (err, expenses) {
+                    var queryObj = {
+                        user: user._id
+                    };
+                    if (req.query.startDate && req.query.timeFrame) {
+                        var startDate = dateUtil.getDateFromString(req.query.startDate);
+                        var endDate = new Date(startDate);
+                        endDate.setDate(startDate.getDate() + (req.query.timeFrame === 'W' ? 7 : req.query.timeFrame === 'M' ? 30 : 365));
+                        queryObj.time = {
+                            "$gte": startDate,
+                            "$lte": endDate
+                        };
+                    }
+                    Expense.find(queryObj, function (err, expenses) {
                         if (err) {
                             return res.status(403).send({
                                 success: false,
