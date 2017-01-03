@@ -1,3 +1,6 @@
+/**
+ * Created by anujparikh on 12/27/16.
+ */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
@@ -23,7 +26,17 @@ var UserSchema = new Schema({
     }
 });
 
+UserSchema.methods.comparePassword = function (passw, cb) {
+    bcrypt.compare(passw, this.password, function (err, isMatch) {
+        if (err) {
+            return cb(err);
+        }
+        cb(null, isMatch);
+    });
+};
+
 UserSchema.pre('save', function (next) {
+    console.log('inside middleware');
     var user = this;
     if (this.isModified('password') || this.isNew) {
         bcrypt.genSalt(10, function (err, salt) {
@@ -42,14 +55,5 @@ UserSchema.pre('save', function (next) {
         return next();
     }
 });
-
-UserSchema.methods.comparePassword = function (passw, cb) {
-    bcrypt.compare(passw, this.password, function (err, isMatch) {
-        if (err) {
-            return cb(err);
-        }
-        cb(null, isMatch);
-    });
-};
 
 module.exports = mongoose.model('User', UserSchema);

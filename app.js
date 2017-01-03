@@ -1,15 +1,16 @@
+/**
+ * Created by anujparikh on 12/27/16.
+ */
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var config = require('./config/database'); // get db config file
-var User = require('./app/models/user'); // get the mongoose model
-var Expense = require('./app/models/expense'); // get the mongoose model
+var config = require('./app/config/database'); // get db config file
 var port = process.env.PORT || 8080;
-var jwt = require('jwt-simple');
-var utils = require('./utils/utilities');
+
+var utils = require('./app/helpers/update');
 
 // get our request parameters
 app.use(bodyParser.urlencoded({extended: false}));
@@ -21,6 +22,8 @@ app.use(morgan('dev'));
 // Use the passport package in our application
 app.use(passport.initialize());
 
+app.use(require('./app/controllers'));
+
 // Start the server
 app.listen(port);
 console.log('There will be dragons: http://localhost:' + port);
@@ -29,15 +32,4 @@ console.log('There will be dragons: http://localhost:' + port);
 mongoose.connect(config.database);
 
 // pass passport for configuration
-require('./config/passport')(passport);
-
-// bundle our routes
-var apiRoutes = express.Router();
-
-// connect the api routes under /api/*
-app.use('/api', apiRoutes);
-
-// demo Route (GET http://localhost:8080)
-app.get('/', function (req, res) {
-    res.send('Hello! The API is at http://localhost:' + port + '/api');
-});
+require('./app/config/passport')(passport);

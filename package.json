@@ -1,6 +1,6 @@
 {
   "name": "tech-2-task",
-  "main": "server.js",
+  "main": "app.js",
   "dependencies": {
     "bcrypt": "^0.8.5",
     "body-parser": "~1.9.2",

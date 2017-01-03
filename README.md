@@ -14,7 +14,7 @@ This project uses MEAN stack for development.
 ### Installation
 ```
     npm install
-    node server.js
+    node app.js
 ```
 ### Server Info
 http://localhost:8080
