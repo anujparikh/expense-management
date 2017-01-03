@@ -1,9 +1,7 @@
-/**
- * Created by anujparikh on 12/27/16.
- */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
+var Expense = require('./expense');
 
 // set up a mongoose model
 var UserSchema = new Schema({
@@ -36,7 +34,6 @@ UserSchema.methods.comparePassword = function (passw, cb) {
 };
 
 UserSchema.pre('save', function (next) {
-    console.log('inside middleware');
     var user = this;
     if (this.isModified('password') || this.isNew) {
         bcrypt.genSalt(10, function (err, salt) {
@@ -54,6 +51,11 @@ UserSchema.pre('save', function (next) {
     } else {
         return next();
     }
+});
+
+UserSchema.pre('remove', function (next) {
+    var user = this;
+    Expense.remove({user: user._id}, next);
 });
 
 module.exports = mongoose.model('User', UserSchema);

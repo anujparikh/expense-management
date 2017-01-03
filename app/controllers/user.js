@@ -116,8 +116,9 @@ apiRoutes.put('/:username', passport.authenticate('jwt', {session: false}), func
 apiRoutes.delete('/:username', passport.authenticate('jwt', {session: false}), function (req, res) {
     var token = tokenUtil.getToken(req.headers);
     if (token) {
-        User.remove({name: req.params.username}, function (err, user) {
+        User.findOneAndRemove({name: req.params.username}, function (err, user) {
             if (err) res.status(403).send({success: false, msg: 'User delete failed.'});
+            user.remove();
             res.json({success: true, msg: req.params.username + ' deleted'});
         })
     }
