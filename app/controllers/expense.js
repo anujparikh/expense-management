@@ -123,4 +123,19 @@ apiRoutes.put('/:expenseid', passport.authenticate('jwt', {session: false}), fun
     }
 });
 
+/**
+ * Remove Expense
+ * @link: http://localhost:8080/user/<expenseid>
+ * @method: delete
+ */
+apiRoutes.delete('/:expenseid', passport.authenticate('jwt', {session: false}), function (req, res) {
+    var token = tokenUtil.getToken(req.headers);
+    if (token) {
+        Expense.remove({_id: req.params.expenseid}, function (err, expense) {
+            if (err) res.status(403).send({success: false, msg: 'Expense delete failed.'});
+            res.json({success: true, msg: req.params.expenseid + ' deleted'});
+        })
+    }
+});
+
 module.exports = apiRoutes;
