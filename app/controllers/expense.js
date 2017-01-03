@@ -14,7 +14,7 @@ var apiRoutes = express.Router();
  * Fetch Expenses based on user role
  * @param: token - user token
  * @queryparam (optional):
- *      startDate: date from which expenses needs to be retrieved
+ *      startDate: date from which expenses needs to be retrieved (mm/dd/yyyy)
  *      timeFrame:  W - weekly
  *                  M - monthly
  *                  Y - annual
