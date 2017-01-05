@@ -10,36 +10,38 @@
     <div class="alert alert-success"><%= success %></div>
     <% } %>
     <div class="group">
-        <input placeholder="First Name" type="text" name="firstName" id="firstName" value="<%= locals.firstName || '' %>" required/><span
+        <input placeholder="First Name" type="text" name="firstName" id="firstName"
+               value="<%= locals.firstName || '' %>" required/><span
                 class="highlight"></span><span class="bar"></span>
     </div>
     <div class="group">
-        <input placeholder="Last Name" type="text" name="lastName" id="lastName" value="<%= locals.lastName || '' %>" required/><span
+        <input placeholder="Last Name" type="text" name="lastName" id="lastName" value="<%= locals.lastName || '' %>"
+               required/><span
                 class="highlight"></span><span class="bar"></span>
     </div>
     <div class="group">
-        <input placeholder="Username" type="text" name="username" id="username" value="<%= locals.username || '' %>" required/><span
+        <input placeholder="Username" type="text" name="username" id="username" value="<%= locals.username || '' %>"
+               required/><span
                 class="highlight"></span><span class="bar"></span>
     </div>
     <div class="group">
-        <input placeholder="Password" type="password" name="password" id="password" required/><span class="highlight"></span><span
+        <input placeholder="Password" type="password" name="password" id="password" required/><span
+                class="highlight"></span><span
                 class="bar"></span>
     </div>
     <div class="group">
         <input placeholder="Role" type="text" name="role" id="role" value="<%= locals.role || '' %>" required/><span
                 class="highlight"></span><span class="bar"></span>
     </div>
-    <div class="text-center">
-        <div class="btn-group">
-            <button type="submit" class="button buttonGreen">Register
+    <div>
+        <button type="submit" class="button buttonGreen">Register
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+        </button>
+        <a href="/login">
+            <button type="button" class="button buttonRed">Cancel
                 <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
             </button>
-            <a href="/login">
-                <button type="button" class="button buttonRed">Cancel
-                    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
-                </button>
-            </a>
-        </div>
+        </a>
     </div>
 </form>
 <%- include('partials/footer') %>
