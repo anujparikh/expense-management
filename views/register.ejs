@@ -29,15 +29,17 @@
         <input placeholder="Role" type="text" name="role" id="role" value="<%= locals.role || '' %>" required/><span
                 class="highlight"></span><span class="bar"></span>
     </div>
-    <div>
-        <button type="submit" class="button buttonGreen">Register
-            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
-        </button>
-        <a href="/login">
-            <button type="button" class="button buttonRed">Cancel
+    <div class="text-center">
+        <div class="btn-group">
+            <button type="submit" class="button buttonGreen">Register
                 <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
             </button>
-        </a>
+            <a href="/login">
+                <button type="button" class="button buttonRed">Cancel
+                    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+                </button>
+            </a>
+        </div>
     </div>
 </form>
 <%- include('partials/footer') %>
