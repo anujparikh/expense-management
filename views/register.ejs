@@ -1,41 +1,43 @@
 <%- include('partials/header') %>
-<div class="form-container">
-    <h2>Register</h2>
+<hgroup>
+    <h1>User Registration</h1>
+</hgroup>
+<form class="registration-form" method="post">
     <% if(locals.error) { %>
     <div class="alert alert-danger"><%= error %></div>
     <% } %>
-    <form method="post">
-        <div class="form-group">
-            <label for="firstName">First name</label>
-            <input type="text" name="firstName" id="firstName" class="form-control"
-                   value="<%= locals.firstName || '' %>" required/>
-        </div>
-        <div class="form-group">
-            <label for="lastName">Last name</label>
-            <input type="text" name="lastName" id="lastName" class="form-control" value="<%= locals.lastName || '' %>"
-                   required/>
-        </div>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" class="form-control" value="<%= locals.username || '' %>"
-                   required/>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="form-control" required/>
-        </div>
-        <div class="form-group">
-            <label for="role">Role</label>
-            <input type="text" name="role" id="role" class="form-control" required/>
-        </div>
-        <div class="form-group">
-            <label for="admin">Admin</label>
-            <input type="text" name="admin" id="admin" class="form-control" required/>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Register</button>
-            <a href="/login" class="btn btn-link">Cancel</a>
-        </div>
-    </form>
-</div>
+    <% if(locals.success) { %>
+    <div class="alert alert-success"><%= success %></div>
+    <% } %>
+    <div class="group">
+        <input placeholder="First Name" type="text" name="firstName" id="firstName" value="<%= locals.firstName || '' %>" required/><span
+                class="highlight"></span><span class="bar"></span>
+    </div>
+    <div class="group">
+        <input placeholder="Last Name" type="text" name="lastName" id="lastName" value="<%= locals.lastName || '' %>" required/><span
+                class="highlight"></span><span class="bar"></span>
+    </div>
+    <div class="group">
+        <input placeholder="Username" type="text" name="username" id="username" value="<%= locals.username || '' %>" required/><span
+                class="highlight"></span><span class="bar"></span>
+    </div>
+    <div class="group">
+        <input placeholder="Password" type="password" name="password" id="password" required/><span class="highlight"></span><span
+                class="bar"></span>
+    </div>
+    <div class="group">
+        <input placeholder="Role" type="text" name="role" id="role" value="<%= locals.role || '' %>" required/><span
+                class="highlight"></span><span class="bar"></span>
+    </div>
+    <div>
+        <button type="submit" class="button buttonGreen">Register
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+        </button>
+        <a href="/login">
+            <button type="button" class="button buttonRed">Cancel
+                <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+            </button>
+        </a>
+    </div>
+</form>
 <%- include('partials/footer') %>

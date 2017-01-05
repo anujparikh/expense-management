@@ -40,7 +40,7 @@ router.post('/', function (req, res) {
         }
 
         // return to login page with success message
-        req.session.success = 'Registration successful';
+        req.session.success = 'Registration successful !!';
         return res.redirect('/login');
     });
 });

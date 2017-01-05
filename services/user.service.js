@@ -34,7 +34,6 @@ function createUser(userParam) {
             lastName: userParam.lastName,
             username: userParam.username,
             password: userParam.password,
-            admin: userParam.admin,
             role: userParam.role
         });
         // save the user

@@ -22,10 +22,6 @@ var UserSchema = new Schema({
         type: String,
         required: true
     },
-    admin: {
-        type: Boolean,
-        required: true
-    },
     role: {
         type: String,
         required: true
