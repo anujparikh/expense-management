@@ -5,7 +5,15 @@ var Expense = require('./expense');
 
 // set up a mongoose model
 var UserSchema = new Schema({
-    name: {
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    username: {
         type: String,
         unique: true,
         required: true

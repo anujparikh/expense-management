@@ -1,4 +1,4 @@
-var _ = require('underscore');
+var _ = require('lodash');
 
 exports.updateDocument = function (doc, SchemaTarget, data) {
     for (var field in SchemaTarget.schema.paths) {
