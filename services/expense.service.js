@@ -16,19 +16,20 @@ service.deleteExpense = deleteExpense;
 /**
  * Add Expense
  * @param currentUserId
+ * @param currentUserName
  * @param expenseParam
  * @returns {*|promise}
  */
-function addExpense(currentUserId, expenseParam) {
+function addExpense(currentUserId, currentUserName, expenseParam) {
     var deferred = Q.defer();
     var newExpense = new Expense({
         description: expenseParam.description,
         amount: expenseParam.amount,
         user: currentUserId,
+        username: currentUserName,
         comment: expenseParam.comment
     });
     newExpense.save(function (err) {
-        console.log('error', err);
         if (err) deferred.reject('An error while adding expense');
         deferred.resolve();
     });
@@ -50,7 +51,6 @@ function updateExpense(_id, expenseParam) {
         else {
             updateUtil.updateDocument(expense, Expense, expenseParam);
             expense.save(function (err) {
-                console.log('error', err);
                 if (err) deferred.reject('An error while updating expense');
                 deferred.resolve();
             });

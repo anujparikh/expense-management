@@ -39,7 +39,6 @@ function createUser(userParam) {
         });
         // save the user
         newUser.save(function (err) {
-            console.log('error', err);
             if (err) deferred.reject('An error while registering user');
             deferred.resolve();
         });
@@ -64,7 +63,7 @@ function authenticateUser(username, password) {
             user.comparePassword(password, function (err, isMatch) {
                 if (isMatch && !err) {
                     // Authentication Successful
-                    var token = jwt.sign({sub: user._id, role: user.role}, config.secret);
+                    var token = jwt.sign({sub: user._id, role: user.role, username: user.username}, config.secret);
                     deferred.resolve(token);
                 } else {
                     // Authentication failed
@@ -141,7 +140,6 @@ function updateUser(_id, userParam) {
     function update(user) {
         updateUtil.updateDocument(user, User, userParam);
         user.save(function (err) {
-            console.log('error', err);
             if (err) deferred.reject('An error while updating user');
             deferred.resolve();
         });

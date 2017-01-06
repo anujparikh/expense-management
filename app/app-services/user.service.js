@@ -3,18 +3,18 @@
 
     angular
         .module('app')
-        .factory('UserService', Service);
+        .factory('UserService', UserService);
 
-    function Service($http, $q) {
+    function UserService($http, $q, $filter) {
         var service = {};
 
-        service.GetCurrent = GetCurrent;
         service.GetAll = GetAll;
         service.GetById = GetById;
         service.GetByUsername = GetByUsername;
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
+        service.GetCurrent = GetCurrent;
 
         return service;
 
