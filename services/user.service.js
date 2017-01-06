@@ -9,6 +9,7 @@ var service = {};
 
 service.authenticateUser = authenticateUser;
 service.createUser = createUser;
+service.currentUser = currentUser;
 service.fetchAllUser = fetchAllUsers;
 service.updateUser = updateUser;
 service.deleteUser = deleteUser;
@@ -77,12 +78,30 @@ function authenticateUser(username, password) {
 }
 
 /**
+ * Get current user
+ * @returns {*|promise}
+ */
+function currentUser(userId) {
+    var deferred = Q.defer();
+    User.findById(userId, function (err, user) {
+        if (err)
+            deferred.reject(err);
+        else {
+            if (user)
+                deferred.resolve(user);
+            else
+                deferred.resolve();
+        }
+    });
+    return deferred.promise;
+}
+
+/**
  * Fetch all the users
  * @returns {*|promise}
  */
 function fetchAllUsers() {
     var deferred = Q.defer();
-    var fetchedUsers;
     User.find({}, function (err, users) {
         if (err)
             deferred.reject(err);

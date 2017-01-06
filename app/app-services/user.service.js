@@ -19,7 +19,7 @@
         return service;
 
         function GetCurrent() {
-            return $http.get('/api/users/current').then(handleSuccess, handleError);
+            return $http.get('/api/users/currentuser').then(handleSuccess, handleError);
         }
 
         function GetAll() {

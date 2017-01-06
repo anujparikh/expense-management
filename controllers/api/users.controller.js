@@ -4,6 +4,7 @@ var router = express.Router();
 var userService = require('services/user.service');
 
 // user api routes
+router.get('/currentuser', getCurrentUser);
 router.get('/fetchall', fetchAllUser);
 router.post('/authenticate', authenticateUser);
 router.post('/register', registerUser);
@@ -16,11 +17,9 @@ router.delete('/:_id', deleteUser);
  * @param res - response
  */
 function authenticateUser(req, res) {
-    console.log('inside autheticate user');
     userService.authenticateUser(req.body.username, req.body.password)
         .then(function (token) {
             if (token) {
-                console.log('token', token);
                 res.send({token: token});
             } else {
                 res.status(401).send('Username or password is incorrect');
@@ -40,6 +39,21 @@ function registerUser(req, res) {
     userService.createUser(req.body)
         .then(function () {
             res.sendStatus(200);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
+/**
+ * Get Current User Controller function
+ * @param req
+ * @param res
+ */
+function getCurrentUser(req, res) {
+    userService.currentUser(req.user.sub)
+        .then(function (user) {
+            res.send(user);
         })
         .catch(function (err) {
             res.status(400).send(err);
