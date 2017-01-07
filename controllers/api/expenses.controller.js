@@ -6,7 +6,7 @@ var dateUtil = require('helpers/date');
 
 router.get('/fetch', fetchExpenseBasedOnRole);
 router.post('/add', addExpense);
-router.put('/:_id', addOrUpdateExpense);
+router.put('/:_id', updateExpense);
 router.delete('/:_id', deleteExpense);
 
 /**

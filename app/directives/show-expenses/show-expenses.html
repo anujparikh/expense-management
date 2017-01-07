@@ -1,0 +1,103 @@
+<div class="container">
+    <div class="page-header page-heading">
+        <h1 class="text-center">Expense Management</h1>
+        <div class="clearfix"></div>
+    </div>
+    <p class="lead text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        incididunt ut labore
+        et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.</p>
+    <table class="table" st-safe-src="vm.displayed" st-pipe="vm.callServer" st-table="vm.displayed">
+        <thead>
+        <tr>
+            <th><input placeholder="Filter by Date" st-search="time"/></th>
+            <th><input placeholder="Filter by User" st-search="username"/></th>
+            <th><input placeholder="Filter by Description" st-search="description"/></th>
+            <th><input placeholder="Filter by Amount" st-search="amount"></th>
+            <th><input placeholder="Filter by Comment" st-search="comment"></th>
+        </tr>
+        <tr>
+            <th st-sort="date">Date</th>
+            <th st-sort="user">User Name</th>
+            <th st-sort="description">Description</th>
+            <th st-sort="amount">Amount</th>
+            <th st-sort="comment">Comment</th>
+        </tr>
+        </thead>
+        <tbody ng-show="!vm.isLoading">
+        <tr ng-click="vm.showExpense(row)" ng-repeat="row in vm.displayed">
+            <td>{{row.time}}</td>
+            <td>{{row.username}}</td>
+            <td>{{row.description}}</td>
+            <td>{{row.amount}}</td>
+            <td>{{row.comment}}</td>
+        </tr>
+        </tbody>
+        <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="4" class="text-center">Loading ...</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="10" colspan="4"></td>
+        </tr>
+        </tfoot>
+    </table>
+    <div ng-if="!vm.showUpdateForm">
+        <div class="col-md-12 text-center">
+            <button class="btn btn-primary" ng-click="vm.showUpdateForm = !vm.showUpdateForm" type="submit"
+                    class="btn btn-default">Add Expense
+            </button>
+        </div>
+    </div>
+    <div ng-if="vm.showUpdateForm">
+        <form class="form-inline">
+            <div class="row margin-bottom-10">
+                <div class="form-group col-md-6">
+                    <div class="row">
+                        <label class="col-md-6">User Name</label>
+                        <input class="col-md-4" type="text" class="form-control" ng-model="vm.expense.username"
+                               placeholder="current username" id="username" value="{{vm.expense.username}}" disabled>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <div class="row">
+                        <label class="col-md-6">Description</label>
+                        <input class="col-md-4" type="text" class="form-control" ng-model="vm.expense.description"
+                               id="description" value="{{vm.expense.description}}" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-40">
+                <div class="form-group col-md-6">
+                    <div class="row">
+                        <label class="col-md-6">Amount</label>
+                        <input class="col-md-4" type="text" class="form-control" ng-model="vm.expense.amount"
+                               id="amount" value="{{vm.expense.amount}}" required>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <div class="row">
+                        <label class="col-md-6">Comment</label>
+                        <input class="col-md-4" type="text" class="form-control" ng-model="vm.expense.comment"
+                               id="comment" value="{{vm.expense.comment}}" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center">
+                    <button class="btn btn-primary" ng-click="vm.addOrUpdateExpense(vm.expense)" type="submit">Submit
+                    </button>
+                    <button class="btn btn-warning" ng-click="vm.cancel()">Cancel
+                    </button>
+                    <button class="btn btn-danger" ng-click="vm.deleteExpense(vm.expense._id)">Delete Expense
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

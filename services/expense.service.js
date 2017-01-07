@@ -9,7 +9,7 @@ var _ = require('lodash');
 var service = {};
 
 service.addExpense = addExpense;
-service.addOrUpdateExpense = addOrUpdateExpense;
+service.updateExpense = updateExpense;
 service.getExpenseBasedOnRole = getExpenseBasedOnRole;
 service.deleteExpense = deleteExpense;
 
