@@ -8,8 +8,13 @@
     function Controller(ExpenseService, UserService) {
         var vm = this;
         vm.displayed = [];
+        vm.expense = {};
+        vm.tableState = {};
+        vm.isUpdate = false;
 
-        vm.callServer = function callServer(tableState) {
+        vm.callServer = function (tableState) {
+            vm.tableState = tableState;
+            vm.showUpdateForm = false;
             vm.isLoading = true;
             var pagination = tableState.pagination;
             var start = pagination.start || 0;
@@ -22,8 +27,42 @@
                 });
         };
 
-        vm.print = function print(row) {
-            console.log(row);
+        vm.showExpense = function (row) {
+            vm.showUpdateForm = true;
+            vm.isUpdate = true;
+            vm.expense._id = row._id;
+            vm.expense.username = row.username;
+            vm.expense.amount = row.amount;
+            vm.expense.comment = row.comment;
+            vm.expense.description = row.description;
+        };
+
+        vm.cancel = function () {
+            vm.showUpdateForm = !vm.showUpdateForm
+            vm.expense = {};
+        };
+
+        vm.addOrUpdateExpense = function (expense) {
+            if (vm.isUpdate) {
+                ExpenseService.updateExpense(expense)
+                    .then(function () {
+                        vm.expense = {};
+                        vm.callServer(vm.tableState);
+                    });
+            } else {
+                ExpenseService.addExpense(expense)
+                    .then(function () {
+                        vm.expense = {};
+                        vm.callServer(vm.tableState);
+                    });
+            }
+        };
+
+        vm.deleteExpense = function (_id) {
+            ExpenseService.deleteExpense(_id)
+                .then(function () {
+                    vm.callServer(vm.tableState);
+                });
         }
     }
 })();

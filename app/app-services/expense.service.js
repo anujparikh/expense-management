@@ -8,8 +8,19 @@
     function ExpenseService(UserService, $http, $q, $filter) {
         var service = {};
 
+        service.addExpense = addExpense;
         service.getAllExpenses = getAllExpenses;
         service.updateExpense = updateExpense;
+        service.deleteExpense = deleteExpense;
+
+        function addExpense(expense) {
+            var deferred = $q.defer();
+            $http.post('/api/expenses/add', expense)
+                .then(function (res) {
+                    deferred.resolve(res);
+                }, handleError);
+            return deferred.promise;
+        }
 
         function getAllExpenses(start, number, params) {
             var deferred = $q.defer();
@@ -30,8 +41,22 @@
             return deferred.promise;
         }
 
-        function updateExpense() {
+        function updateExpense(expense) {
+            var deferred = $q.defer();
+            $http.put('/api/expenses/' + expense._id, expense)
+                .then(function (res) {
+                    deferred.resolve(res);
+                }, handleError);
+            return deferred.promise;
+        }
 
+        function deleteExpense(_id) {
+            var deferred = $q.defer();
+            $http.delete('/api/expenses/' + _id)
+                .then(function (res) {
+                    deferred.resolve(res);
+                }, handleError);
+            return deferred.promise;
         }
 
         function handleError(res) {

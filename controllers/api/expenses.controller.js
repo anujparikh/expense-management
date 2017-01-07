@@ -6,7 +6,7 @@ var dateUtil = require('helpers/date');
 
 router.get('/fetch', fetchExpenseBasedOnRole);
 router.post('/add', addExpense);
-router.put('/:_id', updateExpense);
+router.put('/:_id', addOrUpdateExpense);
 router.delete('/:_id', deleteExpense);
 
 /**
@@ -60,7 +60,7 @@ function addExpense(req, res) {
  * @param res - response object
  */
 function updateExpense(req, res) {
-    expenseService.updateExpense(req.params._id, req.body)
+    expenseService.addOrUpdateExpense(req.params._id, req.body)
         .then(function () {
             res.sendStatus(200);
         })
