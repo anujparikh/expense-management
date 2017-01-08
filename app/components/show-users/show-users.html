@@ -1,0 +1,100 @@
+<div class="container">
+    <div class="page-header page-heading">
+        <h1 class="text-center">Expense Management</h1>
+        <div class="clearfix"></div>
+    </div>
+    <p class="lead text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        incididunt ut labore
+        et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.</p>
+    <table class="table" st-safe-src="vm.displayed" st-pipe="vm.fetchUsers" st-table="vm.displayed">
+        <thead>
+        <tr>
+            <th><input placeholder="Filter by First Name" st-search="firstName"/></th>
+            <th><input placeholder="Filter by Last Name" st-search="lastName"/></th>
+            <th><input placeholder="Filter by User Name" st-search="username"/></th>
+            <th><input placeholder="Filter by Role" st-search="roleDesc"></th>
+        </tr>
+        <tr>
+            <th st-sort="firstName">First Name</th>
+            <th st-sort="lastName">Last Name</th>
+            <th st-sort="username">User Name</th>
+            <th st-sort="roleDesc">Role</th>
+        </tr>
+        </thead>
+        <tbody ng-show="!vm.isLoading">
+        <tr ng-click="vm.showUser(row)" ng-repeat="row in vm.displayed">
+            <td>{{row.firstName}}</td>
+            <td>{{row.lastName}}</td>
+            <td>{{row.username}}</td>
+            <td>{{row.roleDesc}}</td>
+        </tr>
+        </tbody>
+        <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="4" class="text-center">Loading ...</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="10" colspan="4"></td>
+        </tr>
+        </tfoot>
+    </table>
+    <div ng-if="!vm.showUpdateForm">
+        <div class="col-md-12 text-center">
+            <button class="btn btn-primary" ng-click="vm.showUpdateForm = !vm.showUpdateForm" type="submit"
+                    class="btn btn-default">Add Expense
+            </button>
+        </div>
+    </div>
+    <div ng-if="vm.showUpdateForm">
+        <form class="form-inline">
+            <div class="row margin-bottom-10">
+                <div class="form-group col-md-6">
+                    <div class="row">
+                        <label class="col-md-6">First Name</label>
+                        <input class="col-md-4" type="text" class="form-control" ng-model="vm.user.firstName"
+                               placeholder="First name of user" id="firstName" value="{{vm.user.firstName}}" required>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <div class="row">
+                        <label class="col-md-6">Last Name</label>
+                        <input class="col-md-4" type="text" class="form-control" ng-model="vm.user.lastName"
+                               placeholder="Last name of user" id="lastName" value="{{vm.user.lastName}}" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-40">
+                <div class="form-group col-md-6">
+                    <div class="row">
+                        <label class="col-md-6">User Name</label>
+                        <input class="col-md-4" type="text" class="form-control" ng-model="vm.user.username"
+                               placeholder="Username of user" id="username" value="{{vm.user.username}}" required>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <div class="row">
+                        <label class="col-md-6">Role</label>
+                        <input class="col-md-4" type="text" class="form-control" ng-model="vm.user.role"
+                               placeholder="Role of user" id="role" value="{{vm.user.role}}" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center">
+                    <button class="btn btn-primary" ng-click="vm.addOrUpdateUser(vm.user)" type="submit">Submit
+                    </button>
+                    <button class="btn btn-warning" ng-click="vm.cancel()">Cancel
+                    </button>
+                    <button class="btn btn-danger" ng-click="vm.deleteUser(vm.user._id)">Delete Expense
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

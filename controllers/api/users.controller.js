@@ -82,10 +82,11 @@ function fetchAllUser(req, res) {
  */
 function updateUser(req, res) {
     var userId = req.user.sub;
-    if (req.params._id != userId) {
+    var role = req.user.role;
+    if (role === 'R' && req.params._id !== userId) {
         return res.status(401).send('Role access denied for updating user');
     }
-    userService.updateUser(userId, req.body)
+    userService.updateUser(req.params._id, req.body)
         .then(function () {
             res.sendStatus(200);
         })

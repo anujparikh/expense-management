@@ -8,7 +8,7 @@
     function showExpenses() {
         return {
             restrict: 'E',
-            templateUrl: 'directives/show-expenses/show-expenses.html',
+            templateUrl: 'components/show-expenses/show-expenses.html',
             controller: 'ShowExpensesController',
             controllerAs: 'vm'
         };

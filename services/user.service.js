@@ -134,6 +134,8 @@ function updateUser(_id, userParam) {
                     update(fetchUser);
                 }
             });
+        } else {
+            update(fetchUser);
         }
     });
 
