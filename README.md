@@ -17,7 +17,7 @@ This project uses MEAN stack for development.
     node server.js
 ```
 ### Server Info
-http://localhost:8080
+http://localhost:3000
 
 ### Author
 * Anuj Parikh
