@@ -5,8 +5,21 @@
         .module('app')
         .controller('Home.IndexController', Controller);
 
-    function Controller(ExpenseService) {
+    function Controller() {
         var vm = this;
-        vm.showExpensesTab = true;
+        vm.showExpensesTab = false;
+        vm.expenseBtnLiteral = 'Show Expenses';
+        vm.showUsersTab = false;
+        vm.userBtnLiteral = 'Show Users';
+
+        vm.toggleExpensesTab = function () {
+            vm.showExpensesTab = !vm.showExpensesTab;
+            vm.expenseBtnLiteral = vm.showExpensesTab ? 'Hide Expenses' : 'Show Expenses';
+        };
+
+        vm.toggleUsersTab = function () {
+            vm.showUsersTab = !vm.showUsersTab;
+            vm.userBtnLiteral = vm.showUsersTab ? 'Hide Users' : 'Show Users';
+        };
     }
 })();

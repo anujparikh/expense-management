@@ -8,6 +8,7 @@
     function showUsers() {
         return {
             restrict: 'E',
+            scope: {},
             templateUrl: 'components/show-users/show-users.html',
             controller: 'ShowUsersController',
             controllerAs: 'vm'

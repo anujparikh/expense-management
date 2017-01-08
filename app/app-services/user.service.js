@@ -83,10 +83,6 @@
             return $http.get('/api/users/' + username).then(handleSuccess, handleError);
         }
 
-        function Update(user) {
-            return $http.put('/api/users/' + user._id, user).then(handleSuccess, handleError);
-        }
-
         // private functions
 
         function handleSuccess(res) {

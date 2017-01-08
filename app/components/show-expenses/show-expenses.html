@@ -1,16 +1,9 @@
-<div class="container">
+<div class="container margin-bottom-40">
     <div class="page-header page-heading">
-        <h1 class="text-center">Expense Management</h1>
+        <h2 class="text-center">Expenses</h2>
         <div class="clearfix"></div>
     </div>
-    <p class="lead text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-        incididunt ut labore
-        et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum.</p>
-    <table class="table" st-safe-src="vm.displayed" st-pipe="vm.callServer" st-table="vm.displayed">
+    <table class="table" st-safe-src="vm.displayed" st-pipe="vm.callServer" st-table="vm.expenses">
         <thead>
         <tr>
             <th><input placeholder="Filter by Date" st-search="time"/></th>
@@ -28,7 +21,7 @@
         </tr>
         </thead>
         <tbody ng-show="!vm.isLoading">
-        <tr ng-click="vm.showExpense(row)" ng-repeat="row in vm.displayed">
+        <tr ng-click="vm.showExpense(row)" ng-repeat="row in vm.expenses">
             <td>{{row.time}}</td>
             <td>{{row.username}}</td>
             <td>{{row.description}}</td>

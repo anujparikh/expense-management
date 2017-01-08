@@ -7,7 +7,7 @@
 
     function ShowUsersController(UserService) {
         var vm = this;
-        vm.displayed = [];
+        vm.users = [];
         vm.user = {};
         vm.tableState = {};
         vm.isUpdate = false;
@@ -21,7 +21,7 @@
             var number = pagination.number || 10;
             UserService.fetchAllUsers(start, number, tableState)
                 .then(function (result) {
-                    vm.displayed = result.data;
+                    vm.users = result.data;
                     tableState.pagination.numberOfPages = result.numberOfPages;
                     vm.isLoading = false;
                 });
@@ -62,7 +62,7 @@
         vm.deleteUser = function (_id) {
             UserService.deleteUser(_id)
                 .then(function () {
-                    vm.callServer(vm.tableState);
+                    vm.fetchUsers(vm.tableState);
                 });
         }
     }

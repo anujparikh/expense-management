@@ -7,7 +7,7 @@
 
     function ShowExpensesController(ExpenseService) {
         var vm = this;
-        vm.displayed = [];
+        vm.users = [];
         vm.expense = {};
         vm.tableState = {};
         vm.isUpdate = false;
@@ -21,7 +21,7 @@
             var number = pagination.number || 10;
             ExpenseService.getAllExpenses(start, number, tableState)
                 .then(function (result) {
-                    vm.displayed = result.data;
+                    vm.expenses = result.data;
                     tableState.pagination.numberOfPages = result.numberOfPages;
                     vm.isLoading = false;
                 });
