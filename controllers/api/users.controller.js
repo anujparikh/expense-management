@@ -102,10 +102,11 @@ function updateUser(req, res) {
  */
 function deleteUser(req, res) {
     var userId = req.user.sub;
-    if (req.params._id != userId) {
+    var role = req.user.role;
+    if (role === 'R' && req.params._id !== userId) {
         return res.status(401).send('Role access denied for deleting user');
     }
-    userService.deleteUser(userId)
+    userService.deleteUser(req.params._id)
         .then(function () {
             res.sendStatus(200);
         })
