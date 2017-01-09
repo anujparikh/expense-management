@@ -6,7 +6,8 @@
     <table class="table" st-safe-src="vm.displayed" st-pipe="vm.fetchExpenses" st-table="vm.expenses">
         <thead>
         <tr>
-            <th><input placeholder="Filter by Date" st-search="time"/></th>
+            <th></th>
+            <th></th>
             <th><input placeholder="Filter by User" st-search="username"/></th>
             <th><input placeholder="Filter by Description" st-search="description"/></th>
             <th><input placeholder="Filter by Amount" st-search="amount"></th>
@@ -14,6 +15,7 @@
         </tr>
         <tr>
             <th st-sort="date">Date</th>
+            <th st-sort="timeFrt">Time</th>
             <th st-sort="user">User Name</th>
             <th st-sort="description">Description</th>
             <th st-sort="amount">Amount</th>
@@ -22,7 +24,8 @@
         </thead>
         <tbody ng-show="!vm.isLoading">
         <tr ng-click="vm.showExpense(row)" ng-repeat="row in vm.expenses">
-            <td>{{row.time}}</td>
+            <td>{{row.date}}</td>
+            <td>{{row.timeFrt}}</td>
             <td>{{row.username}}</td>
             <td>{{row.description}}</td>
             <td>{{row.amount}}</td>
@@ -89,7 +92,7 @@
                     <div class="row">
                         <label class="col-md-6">User Name</label>
                         <input class="col-md-4" type="text" class="form-control" ng-model="vm.expense.username"
-                               placeholder="current username" id="username" value="{{vm.expense.username}}" disabled>
+                               placeholder="current username" id="username" value="{{vm.expense.username}}" ng-disabled="vm.isRegularUser">
                     </div>
                 </div>
                 <div class="form-group col-md-6">

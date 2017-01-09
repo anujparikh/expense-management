@@ -5,7 +5,7 @@
         .module('app')
         .controller('ShowExpensesController', ShowExpensesController);
 
-    function ShowExpensesController(ExpenseService) {
+    function ShowExpensesController(ExpenseService, UserService) {
         var vm = this;
         vm.users = [];
         vm.expense = {};
@@ -13,6 +13,13 @@
         vm.isUpdate = false;
         vm.contentForPrinting = '';
         vm.showPrintTab = false;
+        vm.currentUser = {};
+
+        UserService.fetchCurrentUser()
+            .then(function (result) {
+                vm.currentUser = result.data;
+                vm.isRegularUser = result.data.role === 'R';
+            });
 
         vm.showPrintForm = function () {
             vm.showPrintTab = !vm.showPrintTab;
@@ -48,6 +55,11 @@
             ExpenseService.getAllExpenses(start, number, tableState)
                 .then(function (result) {
                     vm.expenses = result.data;
+                    vm.expenses = vm.expenses.map(function (expense) {
+                        expense.date = expense.time.substr(5, 2) + "/" + expense.time.substr(8, 2) + "/" + expense.time.substr(0, 4);
+                        expense.timeFrt = expense.time.substr(11, 8);
+                        return expense;
+                    });
                     tableState.pagination.numberOfPages = result.numberOfPages;
                     vm.isLoading = false;
                 });

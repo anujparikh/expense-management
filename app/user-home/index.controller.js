@@ -41,8 +41,7 @@
                         vm.showExpenseBtn = true;
                         vm.showUserBtn = true;
                     }
-                })
-
+                });
         }
     }
 })();
