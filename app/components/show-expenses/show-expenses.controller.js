@@ -19,6 +19,9 @@
             .then(function (result) {
                 vm.currentUser = result.data;
                 vm.isRegularUser = result.data.role === 'R';
+            })
+            .catch(function (err) {
+                vm.error = err;
             });
 
         vm.showPrintForm = function () {
@@ -42,6 +45,9 @@
                         type: 'json',
                         properties: ['username', 'description', 'amount', 'comment']
                     })
+                })
+                .catch(function (err) {
+                    vm.error = err;
                 });
         };
 
@@ -62,6 +68,9 @@
                     });
                     tableState.pagination.numberOfPages = result.numberOfPages;
                     vm.isLoading = false;
+                })
+                .catch(function (err) {
+                    vm.error = err;
                 });
         };
 
@@ -86,12 +95,18 @@
                     .then(function () {
                         vm.expense = {};
                         vm.fetchExpenses(vm.tableState);
+                    })
+                    .catch(function (err) {
+                        vm.error = err;
                     });
             } else {
                 ExpenseService.addExpense(expense)
                     .then(function () {
                         vm.expense = {};
                         vm.fetchExpenses(vm.tableState);
+                    })
+                    .catch(function (err) {
+                        vm.error = err;
                     });
             }
         };
@@ -100,6 +115,9 @@
             ExpenseService.deleteExpense(_id)
                 .then(function () {
                     vm.fetchExpenses(vm.tableState);
+                })
+                .catch(function (err) {
+                    vm.error = err;
                 });
         };
     }

@@ -1,4 +1,7 @@
 <div class="container margin-bottom-40">
+    <div ng-if="vm.error" class="flash-message alert alert-danger">
+        <strong>Error!</strong> {{vm.error}}
+    </div>
     <div class="page-header page-heading">
         <h2 class="text-center">Expenses</h2>
         <div class="clearfix"></div>

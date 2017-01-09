@@ -3,6 +3,9 @@
         <h2 class="text-center">Users</h2>
         <div class="clearfix"></div>
     </div>
+    <div ng-if="vm.error" class="flash-message alert alert-danger">
+        <strong>Error!</strong> {{vm.error}}
+    </div>
     <table class="table" st-safe-src="vm.displayed" st-pipe="vm.fetchUsers" st-table="vm.users">
         <thead>
         <tr>

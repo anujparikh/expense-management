@@ -5,7 +5,7 @@
         .module('app')
         .factory('ExpenseService', ExpenseService);
 
-    function ExpenseService(UserService, $http, $q, $filter) {
+    function ExpenseService($http, $q, $filter) {
         var service = {};
 
         service.addExpense = addExpense;
@@ -19,7 +19,10 @@
             $http.post('/api/expenses/add', expense)
                 .then(function (res) {
                     deferred.resolve(res);
-                }, handleError);
+                })
+                .catch(function (err) {
+                    deferred.reject(err.data);
+                });
             return deferred.promise;
         }
 
@@ -38,7 +41,10 @@
                         data: result,
                         numberOfPages: Math.ceil(filtered.length / number)
                     });
-                }, handleError);
+                })
+                .catch(function (err) {
+                    deferred.reject(err.data);
+                });
             return deferred.promise;
         }
 
@@ -49,7 +55,10 @@
                 .then(function (res) {
                     expenses = res.data;
                     deferred.resolve(expenses);
-                }, handleError);
+                })
+                .catch(function (err) {
+                    deferred.reject(err.data);
+                });
             return deferred.promise;
         }
 
@@ -58,7 +67,10 @@
             $http.put('/api/expenses/' + expense._id, expense)
                 .then(function (res) {
                     deferred.resolve(res);
-                }, handleError);
+                })
+                .catch(function (err) {
+                    deferred.reject(err.data);
+                });
             return deferred.promise;
         }
 
@@ -67,12 +79,11 @@
             $http.delete('/api/expenses/' + _id)
                 .then(function (res) {
                     deferred.resolve(res);
-                }, handleError);
+                })
+                .catch(function (err) {
+                    deferred.reject(err.data);
+                });
             return deferred.promise;
-        }
-
-        function handleError(res) {
-            return $q.reject(res.data);
         }
 
         return service;

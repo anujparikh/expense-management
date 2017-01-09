@@ -21,7 +21,10 @@
             $http.get('/api/users/currentuser')
                 .then(function (res) {
                     deferred.resolve(res);
-                }, handleError);
+                })
+                .catch(function (err) {
+                    deferred.reject(err.data);
+                });
             return deferred.promise;
         }
 
@@ -30,7 +33,10 @@
             $http.post('/api/users/register', user)
                 .then(function (res) {
                     deferred.resolve(res);
-                }, handleError);
+                })
+                .catch(function (err) {
+                    deferred.reject(err.data);
+                });
             return deferred.promise;
         }
 
@@ -55,7 +61,10 @@
                         data: result,
                         numberOfPages: Math.ceil(filtered.length / number)
                     });
-                }, handleError);
+                })
+                .catch(function (err) {
+                    deferred.reject(err.data);
+                });
             return deferred.promise;
         }
 
@@ -64,7 +73,10 @@
             $http.put('/api/users/' + user._id, user)
                 .then(function (res) {
                     deferred.resolve(res);
-                }, handleError);
+                })
+                .catch(function (err) {
+                    deferred.reject(err.data);
+                });
             return deferred.promise;
         }
 
@@ -73,13 +85,11 @@
             $http.delete('/api/users/' + _id)
                 .then(function (res) {
                     deferred.resolve(res);
-                }, handleError);
+                })
+                .catch(function (err) {
+                    deferred.reject(err.data);
+                });
             return deferred.promise;
         }
-
-        function handleError(res) {
-            return $q.reject(res.data);
-        }
     }
-
 })();

@@ -12,6 +12,9 @@
         <h1 class="text-center">Expense Management</h1>
         <div class="clearfix"></div>
     </div>
+    <div ng-if="vm.error" class="alert alert-danger">
+        <strong>Error!</strong> {{vm.error}}
+    </div>
     <p class="lead text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
         incididunt ut labore
         et dolore magna aliqua.

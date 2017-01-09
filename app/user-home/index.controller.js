@@ -41,6 +41,9 @@
                         vm.showExpenseBtn = true;
                         vm.showUserBtn = true;
                     }
+                })
+                .catch(function (err) {
+                    vm.error = err;
                 });
         }
     }

@@ -24,6 +24,9 @@
                     vm.users = result.data;
                     tableState.pagination.numberOfPages = result.numberOfPages;
                     vm.isLoading = false;
+                })
+                .catch(function (err) {
+                    vm.error = err;
                 });
         };
 
@@ -48,6 +51,9 @@
                     .then(function () {
                         vm.user = {};
                         vm.fetchUsers(vm.tableState);
+                    })
+                    .catch(function (err) {
+                        vm.error = err;
                     });
             } else {
                 user.password = 'default';
@@ -55,6 +61,9 @@
                     .then(function () {
                         vm.user = {};
                         vm.fetchUsers(vm.tableState);
+                    })
+                    .catch(function (err) {
+                        vm.error = err;
                     });
             }
         };
@@ -63,6 +72,9 @@
             UserService.deleteUser(_id)
                 .then(function () {
                     vm.fetchUsers(vm.tableState);
+                })
+                .catch(function (err) {
+                    vm.error = err;
                 });
         }
     }

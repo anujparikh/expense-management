@@ -56,7 +56,7 @@ function getCurrentUser(req, res) {
             res.send(user);
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.status(400).send(err.message);
         });
 }
 
@@ -71,7 +71,7 @@ function fetchAllUser(req, res) {
             res.send(users);
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.status(400).send(err.message);
         });
 }
 
