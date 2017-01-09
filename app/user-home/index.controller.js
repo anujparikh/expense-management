@@ -18,6 +18,7 @@
             vm.expenseBtnLiteral = 'Show Expenses';
             vm.showUsersTab = false;
             vm.userBtnLiteral = 'Show Users';
+            vm.currentUser = {};
 
             vm.toggleExpensesTab = function () {
                 vm.showExpensesTab = !vm.showExpensesTab;
@@ -31,6 +32,7 @@
 
             UserService.fetchCurrentUser()
                 .then(function (result) {
+                    vm.currentUser = result.data;
                     if (result.data.role === 'R') {
                         vm.showExpenseBtn = true;
                     } else if (result.data.role === 'M') {

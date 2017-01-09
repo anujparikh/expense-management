@@ -1,4 +1,13 @@
 <div class="container">
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="flash-message dropdown">
+                <span class="glyphicon glyphicon-user"></span>
+                Welcome <strong>{{vm.currentUser.firstName}}</strong>
+                <button class="margin-left-20 btn btn-default"><a href="/login" target="_self">Logout</a></button>
+            </li>
+        </ul>
+    </div>
     <div class="page-header page-heading">
         <h1 class="text-center">Expense Management</h1>
         <div class="clearfix"></div>
@@ -11,8 +20,11 @@
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
         laborum.</p>
     <div class="row">
-        <button ng-if="vm.showExpenseBtn" class="btn btn-primary" ng-click="vm.toggleExpensesTab()">{{vm.expenseBtnLiteral}}</button>
-        <button ng-if="vm.showUserBtn" class="btn btn-primary" ng-click="vm.toggleUsersTab()">{{vm.userBtnLiteral}}</button>
+        <button ng-if="vm.showExpenseBtn" class="btn btn-primary" ng-click="vm.toggleExpensesTab()">
+            {{vm.expenseBtnLiteral}}
+        </button>
+        <button ng-if="vm.showUserBtn" class="btn btn-primary" ng-click="vm.toggleUsersTab()">{{vm.userBtnLiteral}}
+        </button>
     </div>
     <show-expenses ng-if="vm.showExpensesTab"></show-expenses>
     <show-users ng-if="vm.showUsersTab"></show-users>
