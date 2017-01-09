@@ -11,8 +11,8 @@
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
         laborum.</p>
     <div class="row">
-        <button class="btn btn-primary" ng-click="vm.toggleExpensesTab()">{{vm.expenseBtnLiteral}}</button>
-        <button class="btn btn-primary" ng-click="vm.toggleUsersTab()">{{vm.userBtnLiteral}}</button>
+        <button ng-if="vm.showExpenseBtn" class="btn btn-primary" ng-click="vm.toggleExpensesTab()">{{vm.expenseBtnLiteral}}</button>
+        <button ng-if="vm.showUserBtn" class="btn btn-primary" ng-click="vm.toggleUsersTab()">{{vm.userBtnLiteral}}</button>
     </div>
     <show-expenses ng-if="vm.showExpensesTab"></show-expenses>
     <show-users ng-if="vm.showUsersTab"></show-users>

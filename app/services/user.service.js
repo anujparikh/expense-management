@@ -8,19 +8,21 @@
     function UserService($http, $q, $filter) {
         var service = {};
 
+        service.fetchCurrentUser = fetchCurrentUser;
         service.fetchAllUsers = fetchAllUsers;
         service.addUser = addUser;
         service.updateUser = updateUser;
         service.deleteUser = deleteUser;
 
-        service.GetById = GetById;
-        service.GetByUsername = GetByUsername;
-        service.GetCurrent = GetCurrent;
-
         return service;
 
-        function GetCurrent() {
-            return $http.get('/api/users/currentuser').then(handleSuccess, handleError);
+        function fetchCurrentUser() {
+            var deferred = $q.defer();
+            $http.get('/api/users/currentuser')
+                .then(function (res) {
+                    deferred.resolve(res);
+                }, handleError);
+            return deferred.promise;
         }
 
         function addUser(user) {
@@ -73,20 +75,6 @@
                     deferred.resolve(res);
                 }, handleError);
             return deferred.promise;
-        }
-
-        function GetById(_id) {
-            return $http.get('/api/users/' + _id).then(handleSuccess, handleError);
-        }
-
-        function GetByUsername(username) {
-            return $http.get('/api/users/' + username).then(handleSuccess, handleError);
-        }
-
-        // private functions
-
-        function handleSuccess(res) {
-            return res.data;
         }
 
         function handleError(res) {

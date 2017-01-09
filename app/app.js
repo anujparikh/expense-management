@@ -15,7 +15,7 @@
             .state('home', {
                 url: '/',
                 templateUrl: 'user-home/index.html',
-                controller: 'Home.IndexController',
+                controller: 'userHomeController',
                 controllerAs: 'vm'
             })
     }
