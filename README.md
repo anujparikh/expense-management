@@ -34,7 +34,7 @@ This project uses MEAN stack for development.
 http://localhost:3000
 
 ### Author
-* Anuj Parikh
+* [Anuj Parikh](https://github/anujparikh)
 
 
 
