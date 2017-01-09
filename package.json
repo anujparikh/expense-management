@@ -2,7 +2,6 @@
   "name": "tech-2-task",
   "main": "server.js",
   "dependencies": {
-    "angular-smart-table": "^2.1.8",
     "bcrypt": "^0.8.5",
     "body-parser": "~1.9.2",
     "ejs": "^2.3.3",
