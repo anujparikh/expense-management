@@ -20,7 +20,7 @@ This project uses MEAN stack for development.
 ### External Libraries Used on Client Side
 * bcrypt - `Password hashing`
 * body-parser - `Parse incoming request bodies in a middleware before your handlers, availabe under the req.body property`
-* ejs - `server side template rendering`
+* ejs - `Server side template rendering`
 * mongoose - `MongoDB ODM`
 * passport - `Express authenication`
 * rootpath - `Make node.js require relative to your project root`
@@ -34,7 +34,7 @@ This project uses MEAN stack for development.
 http://localhost:3000
 
 ### Author
-* [Anuj Parikh](https://github/anujparikh)
+* [Anuj Parikh](https://github.com/anujparikh)
 
 
 
