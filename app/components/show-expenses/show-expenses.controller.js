@@ -19,6 +19,7 @@
             .then(function (result) {
                 vm.currentUser = result.data;
                 vm.isRegularUser = result.data.role === 'R';
+                vm.error = false;
             })
             .catch(function (err) {
                 vm.error = err;
@@ -44,7 +45,8 @@
                         '<p style="font-size: large">Average Day Spending: ' + vm.averageExpense + '</p>',
                         type: 'json',
                         properties: ['username', 'description', 'amount', 'comment']
-                    })
+                    });
+                    vm.error = false;
                 })
                 .catch(function (err) {
                     vm.error = err;
@@ -68,6 +70,7 @@
                     });
                     tableState.pagination.numberOfPages = result.numberOfPages;
                     vm.isLoading = false;
+                    vm.error = false;
                 })
                 .catch(function (err) {
                     vm.error = err;
@@ -95,6 +98,7 @@
                     .then(function () {
                         vm.expense = {};
                         vm.fetchExpenses(vm.tableState);
+                        vm.error = false;
                     })
                     .catch(function (err) {
                         vm.error = err;
@@ -104,6 +108,7 @@
                     .then(function () {
                         vm.expense = {};
                         vm.fetchExpenses(vm.tableState);
+                        vm.error = false;
                     })
                     .catch(function (err) {
                         vm.error = err;
@@ -115,6 +120,7 @@
             ExpenseService.deleteExpense(_id)
                 .then(function () {
                     vm.fetchExpenses(vm.tableState);
+                    vm.error = false;
                 })
                 .catch(function (err) {
                     vm.error = err;

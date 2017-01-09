@@ -60,7 +60,7 @@ function addExpense(req, res) {
  * @param res - response object
  */
 function updateExpense(req, res) {
-    expenseService.addOrUpdateExpense(req.params._id, req.body)
+    expenseService.updateExpense(req.params._id, req.body)
         .then(function () {
             res.sendStatus(200);
         })

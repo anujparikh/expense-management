@@ -24,6 +24,7 @@
                     vm.users = result.data;
                     tableState.pagination.numberOfPages = result.numberOfPages;
                     vm.isLoading = false;
+                    vm.error = false;
                 })
                 .catch(function (err) {
                     vm.error = err;
@@ -51,6 +52,7 @@
                     .then(function () {
                         vm.user = {};
                         vm.fetchUsers(vm.tableState);
+                        vm.error = false;
                     })
                     .catch(function (err) {
                         vm.error = err;
@@ -61,6 +63,7 @@
                     .then(function () {
                         vm.user = {};
                         vm.fetchUsers(vm.tableState);
+                        vm.error = false;
                     })
                     .catch(function (err) {
                         vm.error = err;
@@ -72,6 +75,7 @@
             UserService.deleteUser(_id)
                 .then(function () {
                     vm.fetchUsers(vm.tableState);
+                    vm.error = false;
                 })
                 .catch(function (err) {
                     vm.error = err;

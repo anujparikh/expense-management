@@ -21,6 +21,9 @@ service.deleteUser = deleteUser;
  */
 function createUser(userParam) {
     var deferred = Q.defer();
+    if (userParam.password !== userParam.rePassword) {
+        deferred.reject('Password Mismatch');
+    }
     User.findOne({username: userParam.username}, function (err, user) {
         if (err) deferred.reject(err);
         if (user) {
@@ -99,18 +102,33 @@ function currentUser(userId) {
  * Fetch all the users
  * @returns {*|promise}
  */
-function fetchAllUsers() {
+function fetchAllUsers(userId, role) {
     var deferred = Q.defer();
-    User.find({}, function (err, users) {
-        if (err)
-            deferred.reject(err);
-        else {
-            if (users)
-                deferred.resolve(users);
-            else
-                deferred.resolve();
-        }
-    });
+    if (role !== 'R') {
+        User.find({}, function (err, users) {
+            if (err)
+                deferred.reject(err);
+            else {
+                if (users)
+                    deferred.resolve(users);
+                else
+                    deferred.resolve();
+            }
+        });
+    } else {
+        User.findById(userId, function (err, user) {
+            var users = [];
+            users[0] = user;
+            if (err)
+                deferred.reject(err);
+            else {
+                if (user)
+                    deferred.resolve(users);
+                else
+                    deferred.resolve();
+            }
+        });
+    }
     return deferred.promise;
 }
 

@@ -66,7 +66,7 @@ function getCurrentUser(req, res) {
  * @param res - response object
  */
 function fetchAllUser(req, res) {
-    userService.fetchAllUser()
+    userService.fetchAllUser(req.user.sub, req.user.role)
         .then(function (users) {
             res.send(users);
         })

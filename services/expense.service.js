@@ -49,11 +49,28 @@ function updateExpense(_id, expenseParam) {
         if (err)
             deferred.reject(err);
         else {
-            updateUtil.updateDocument(expense, Expense, expenseParam);
-            expense.save(function (err) {
-                if (err) deferred.reject('An error while updating expense');
-                deferred.resolve();
-            });
+            if (expenseParam.username) {
+                User.findOne({username: expenseParam.username}, function (err, user) {
+                    if (err) deferred.reject('Invalid username entered');
+                    if (user) {
+                        expenseParam.user = user._id;
+                        updateUtil.updateDocument(expense, Expense, expenseParam);
+                        expense.save(function (err) {
+                            if (err) deferred.reject('An error while updating expense');
+                            deferred.resolve();
+                        });
+                    } else {
+                        deferred.reject('Invalid username entered');
+                    }
+                });
+            }
+            else {
+                updateUtil.updateDocument(expense, Expense, expenseParam);
+                expense.save(function (err) {
+                    if (err) deferred.reject('An error while updating expense');
+                    deferred.resolve();
+                });
+            }
         }
     });
     return deferred.promise;

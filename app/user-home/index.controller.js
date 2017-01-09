@@ -35,6 +35,8 @@
                     vm.currentUser = result.data;
                     if (result.data.role === 'R') {
                         vm.showExpenseBtn = true;
+                        vm.showUserBtn = true;
+                        vm.userBtnLiteral = 'Update User';
                     } else if (result.data.role === 'M') {
                         vm.showUserBtn = true;
                     } else {
