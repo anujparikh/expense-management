@@ -3,7 +3,7 @@
         <h2 class="text-center">Expenses</h2>
         <div class="clearfix"></div>
     </div>
-    <table class="table" st-safe-src="vm.displayed" st-pipe="vm.callServer" st-table="vm.expenses">
+    <table class="table" st-safe-src="vm.displayed" st-pipe="vm.fetchExpenses" st-table="vm.expenses">
         <thead>
         <tr>
             <th><input placeholder="Filter by Date" st-search="time"/></th>
@@ -41,10 +41,45 @@
         </tfoot>
     </table>
     <div ng-if="!vm.showUpdateForm">
-        <div class="col-md-12 text-center">
+        <div class="margin-bottom-40 col-md-12 text-center">
             <button class="btn btn-primary" ng-click="vm.showUpdateForm = !vm.showUpdateForm" type="submit"
                     class="btn btn-default">Add Expense
             </button>
+            <button class="btn btn-info" ng-click="vm.showPrintForm()">Print Expenses
+            </button>
+        </div>
+        <div ng-if="vm.showPrintTab" class="container">
+            <div class="row">
+                <div class="col-md-4 row">
+                    <div class="col-md-6 text-center">
+                        <label>
+                            Start Date
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <datepicker date-format="MM/dd/yyyy">
+                            <input ng-model="vm.startDate" type="text" required/>
+                        </datepicker>
+                    </div>
+                </div>
+                <div class="col-md-4 row">
+                    <div class="col-md-6 text-center">
+                        <label for="timeFrame">
+                            Time Frame
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <select name="timeFrame" id="timeFrame" ng-model="vm.timeFrame">
+                            <option value="W">Weekly</option>
+                            <option value="M">Monthly</option>
+                            <option value="Y">Yearly</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <button class="btn btn-info" ng-click="vm.printData(vm.startDate, vm.timeFrame)">Print</button>
+                </div>
+            </div>
         </div>
     </div>
     <div ng-if="vm.showUpdateForm">

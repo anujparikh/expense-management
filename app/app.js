@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app', ['ui.router', 'smart-table'])
+        .module('app', ['ui.router', 'smart-table', '720kb.datepicker'])
         .config(config)
         .constant('_', window._)
         .run(run);

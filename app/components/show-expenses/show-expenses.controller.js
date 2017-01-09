@@ -11,8 +11,34 @@
         vm.expense = {};
         vm.tableState = {};
         vm.isUpdate = false;
+        vm.contentForPrinting = '';
+        vm.showPrintTab = false;
 
-        vm.callServer = function (tableState) {
+        vm.showPrintForm = function () {
+            vm.showPrintTab = !vm.showPrintTab;
+        };
+
+        vm.printData = function (startDate, timeFrame) {
+            ExpenseService.getAllExpensesWithTimeFrame(startDate, timeFrame)
+                .then(function (result) {
+                    var timeFrameDesc = timeFrame === 'W' ? 'Weekly' : timeFrame === 'M' ? 'Monthly' : 'Yearly';
+                    var timeFrameDays = timeFrame === 'W' ? 7 : timeFrame === 'M' ? 30 : 365;
+                    vm.printExpenses = result;
+                    vm.totalExpense = _.reduce(vm.printExpenses, function (total, expense) {
+                        return total + expense.amount;
+                    }, 0);
+                    vm.averageExpense = _.round(vm.totalExpense / timeFrameDays, 2);
+                    printJS({
+                        printable: vm.printExpenses,
+                        header: '<b>Print Expenses</b><br><p style="font-size: large">Total ' + timeFrameDesc + ' Expense: ' + vm.totalExpense + '</p>' +
+                        '<p style="font-size: large">Average Day Spending: ' + vm.averageExpense + '</p>',
+                        type: 'json',
+                        properties: ['username', 'description', 'amount', 'comment']
+                    })
+                });
+        };
+
+        vm.fetchExpenses = function (tableState) {
             vm.tableState = tableState;
             vm.showUpdateForm = false;
             vm.isLoading = true;
@@ -38,7 +64,7 @@
         };
 
         vm.cancel = function () {
-            vm.showUpdateForm = !vm.showUpdateForm
+            vm.showUpdateForm = !vm.showUpdateForm;
             vm.expense = {};
         };
 
@@ -47,13 +73,13 @@
                 ExpenseService.updateExpense(expense)
                     .then(function () {
                         vm.expense = {};
-                        vm.callServer(vm.tableState);
+                        vm.fetchExpenses(vm.tableState);
                     });
             } else {
                 ExpenseService.addExpense(expense)
                     .then(function () {
                         vm.expense = {};
-                        vm.callServer(vm.tableState);
+                        vm.fetchExpenses(vm.tableState);
                     });
             }
         };
@@ -61,8 +87,8 @@
         vm.deleteExpense = function (_id) {
             ExpenseService.deleteExpense(_id)
                 .then(function () {
-                    vm.callServer(vm.tableState);
+                    vm.fetchExpenses(vm.tableState);
                 });
-        }
+        };
     }
 })();

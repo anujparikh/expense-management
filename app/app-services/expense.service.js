@@ -10,6 +10,7 @@
 
         service.addExpense = addExpense;
         service.getAllExpenses = getAllExpenses;
+        service.getAllExpensesWithTimeFrame = getAllExpensesWithTimeFrame;
         service.updateExpense = updateExpense;
         service.deleteExpense = deleteExpense;
 
@@ -37,6 +38,17 @@
                         data: result,
                         numberOfPages: Math.ceil(filtered.length / number)
                     });
+                }, handleError);
+            return deferred.promise;
+        }
+
+        function getAllExpensesWithTimeFrame(startDate, timeFrame) {
+            var deferred = $q.defer();
+            var expenses = [];
+            $http.get('/api/expenses/fetch?startDate=' + startDate + '&timeFrame=' + timeFrame)
+                .then(function (res) {
+                    expenses = res.data;
+                    deferred.resolve(expenses);
                 }, handleError);
             return deferred.promise;
         }
