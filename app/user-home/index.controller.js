@@ -27,7 +27,11 @@
 
             vm.toggleUsersTab = function () {
                 vm.showUsersTab = !vm.showUsersTab;
-                vm.userBtnLiteral = vm.showUsersTab ? 'Hide Users' : 'Show Users';
+                if (vm.showUsersTab) {
+                    vm.userBtnLiteral = vm.roleOfUser === 'R' ? 'Hide Update User' : 'Hide Users';
+                } else {
+                    vm.userBtnLiteral = vm.roleOfUser === 'R' ? 'Update User' : 'Show Users';
+                }
             };
 
             /**
@@ -36,11 +40,12 @@
             UserService.fetchCurrentUser()
                 .then(function (result) {
                     vm.currentUser = result.data;
-                    if (result.data.role === 'R') {
+                    vm.roleOfUser = result.data.role;
+                    if (vm.roleOfUser === 'R') {
                         vm.showExpenseBtn = true;
                         vm.showUserBtn = true;
                         vm.userBtnLiteral = 'Update User';
-                    } else if (result.data.role === 'M') {
+                    } else if (vm.roleOfUser === 'M') {
                         vm.showUserBtn = true;
                     } else {
                         vm.showExpenseBtn = true;

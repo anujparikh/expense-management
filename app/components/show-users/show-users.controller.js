@@ -72,6 +72,7 @@
                     });
             } else {
                 user.password = 'default';
+                user.rePassword = 'default';
                 UserService.addUser(user)
                     .then(function () {
                         vm.user = {};

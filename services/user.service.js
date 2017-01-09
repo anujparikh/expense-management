@@ -23,28 +23,29 @@ function createUser(userParam) {
     var deferred = Q.defer();
     if (userParam.password !== userParam.rePassword) {
         deferred.reject('Password Mismatch');
-    }
-    User.findOne({username: userParam.username}, function (err, user) {
-        if (err) deferred.reject(err);
-        if (user) {
-            deferred.reject('Username "' + userParam.username + '" is already taken');
-        } else {
-            create();
+    } else {
+        User.findOne({username: userParam.username}, function (err, user) {
+            if (err) deferred.reject(err);
+            if (user) {
+                deferred.reject('Username "' + userParam.username + '" is already taken');
+            } else {
+                create();
+            }
+        });
+        function create() {
+            var newUser = new User({
+                firstName: userParam.firstName,
+                lastName: userParam.lastName,
+                username: userParam.username,
+                password: userParam.password,
+                role: userParam.role
+            });
+            // save the user
+            newUser.save(function (err) {
+                if (err) deferred.reject('An error while registering user');
+                deferred.resolve();
+            });
         }
-    });
-    function create() {
-        var newUser = new User({
-            firstName: userParam.firstName,
-            lastName: userParam.lastName,
-            username: userParam.username,
-            password: userParam.password,
-            role: userParam.role
-        });
-        // save the user
-        newUser.save(function (err) {
-            if (err) deferred.reject('An error while registering user');
-            deferred.resolve();
-        });
     }
 
     return deferred.promise;
