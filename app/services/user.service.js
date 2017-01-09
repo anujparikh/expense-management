@@ -14,8 +14,10 @@
         service.updateUser = updateUser;
         service.deleteUser = deleteUser;
 
-        return service;
-
+        /**
+         * Service function to fetch current user
+         * @returns {*|promise}
+         */
         function fetchCurrentUser() {
             var deferred = $q.defer();
             $http.get('/api/users/currentuser')
@@ -28,6 +30,11 @@
             return deferred.promise;
         }
 
+        /**
+         * Service function to add user
+         * @param user
+         * @returns {*|promise}
+         */
         function addUser(user) {
             var deferred = $q.defer();
             $http.post('/api/users/register', user)
@@ -40,6 +47,13 @@
             return deferred.promise;
         }
 
+        /**
+         * Service function to fetch all the users
+         * @param start
+         * @param number
+         * @param params
+         * @returns {*|promise}
+         */
         function fetchAllUsers(start, number, params) {
             var deferred = $q.defer();
             var users = [];
@@ -68,6 +82,11 @@
             return deferred.promise;
         }
 
+        /**
+         * Service function to update selected user
+         * @param user
+         * @returns {*|promise}
+         */
         function updateUser(user) {
             var deferred = $q.defer();
             $http.put('/api/users/' + user._id, user)
@@ -80,6 +99,11 @@
             return deferred.promise;
         }
 
+        /**
+         * Service function to delete selected user
+         * @param _id
+         * @returns {*|promise}
+         */
         function deleteUser(_id) {
             var deferred = $q.defer();
             $http.delete('/api/users/' + _id)
@@ -91,5 +115,7 @@
                 });
             return deferred.promise;
         }
+
+        return service;
     }
 })();

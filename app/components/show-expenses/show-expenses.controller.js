@@ -15,6 +15,9 @@
         vm.showPrintTab = false;
         vm.currentUser = {};
 
+        /**
+         * fetch current user to utilize on user home page
+         */
         UserService.fetchCurrentUser()
             .then(function (result) {
                 vm.currentUser = result.data;
@@ -25,10 +28,20 @@
                 vm.error = err;
             });
 
+        /**
+         * showing printing form
+         */
         vm.showPrintForm = function () {
             vm.showPrintTab = !vm.showPrintTab;
         };
 
+        /**
+         * helper function to print expenses based on time frame
+         * @param startDate - Start date for the report
+         * @param timeFrame - W: Weekly
+         *                    M: Monthly
+         *                    Y: Yearly
+         */
         vm.printData = function (startDate, timeFrame) {
             ExpenseService.getAllExpensesWithTimeFrame(startDate, timeFrame)
                 .then(function (result) {
@@ -53,6 +66,10 @@
                 });
         };
 
+        /**
+         * Fetch all the expenses based on the user role and feed data to smart table
+         * @param tableState
+         */
         vm.fetchExpenses = function (tableState) {
             vm.tableState = tableState;
             vm.showUpdateForm = false;
@@ -77,6 +94,10 @@
                 });
         };
 
+        /**
+         * helper function to show expense on click of row in table
+         * @param row - expense object
+         */
         vm.showExpense = function (row) {
             vm.showUpdateForm = true;
             vm.isUpdate = true;
@@ -93,6 +114,10 @@
             vm.expense = {};
         };
 
+        /**
+         * Based on user action Add or Update the expense
+         * @param expense
+         */
         vm.addOrUpdateExpense = function (expense) {
             if (vm.isUpdate) {
                 ExpenseService.updateExpense(expense)
@@ -117,6 +142,10 @@
             }
         };
 
+        /**
+         * Delete Expense selected by User
+         * @param _id
+         */
         vm.deleteExpense = function (_id) {
             ExpenseService.deleteExpense(_id)
                 .then(function () {

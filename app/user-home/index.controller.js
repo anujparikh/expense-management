@@ -30,6 +30,9 @@
                 vm.userBtnLiteral = vm.showUsersTab ? 'Hide Users' : 'Show Users';
             };
 
+            /**
+             * Fetch current user and display users and expenses based on his role
+             */
             UserService.fetchCurrentUser()
                 .then(function (result) {
                     vm.currentUser = result.data;

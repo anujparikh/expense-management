@@ -12,6 +12,10 @@
         vm.tableState = {};
         vm.isUpdate = false;
 
+        /**
+         * Fetch users based on role and feed data to smart table
+         * @param tableState
+         */
         vm.fetchUsers = function (tableState) {
             vm.tableState = tableState;
             vm.showUpdateForm = false;
@@ -31,6 +35,10 @@
                 });
         };
 
+        /**
+         * helper function to show data on click of row in table
+         * @param row - user object
+         */
         vm.showUser = function (row) {
             vm.showUpdateForm = true;
             vm.isUpdate = true;
@@ -46,6 +54,11 @@
             vm.user = {};
         };
 
+        /**
+         * Function to add or update the user based on user action
+         * For addition, default passed for new user would be 'default'
+         * @param user - user object
+         */
         vm.addOrUpdateUser = function (user) {
             if (vm.isUpdate) {
                 UserService.updateUser(user)
@@ -71,6 +84,10 @@
             }
         };
 
+        /**
+         * Delete User
+         * @param _id
+         */
         vm.deleteUser = function (_id) {
             UserService.deleteUser(_id)
                 .then(function () {

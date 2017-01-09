@@ -14,6 +14,11 @@
         service.updateExpense = updateExpense;
         service.deleteExpense = deleteExpense;
 
+        /**
+         * Add new Expense service function
+         * @param expense
+         * @returns {*|promise}
+         */
         function addExpense(expense) {
             var deferred = $q.defer();
             $http.post('/api/expenses/add', expense)
@@ -26,6 +31,13 @@
             return deferred.promise;
         }
 
+        /**
+         * Get all the expenses based on user role
+         * @param start
+         * @param number
+         * @param params
+         * @returns {*|promise}
+         */
         function getAllExpenses(start, number, params) {
             var deferred = $q.defer();
             var expenses = [];
@@ -48,6 +60,12 @@
             return deferred.promise;
         }
 
+        /**
+         * Service function to fetch expenses based on time frame for printing
+         * @param startDate
+         * @param timeFrame
+         * @returns {*|promise}
+         */
         function getAllExpensesWithTimeFrame(startDate, timeFrame) {
             var deferred = $q.defer();
             var expenses = [];
@@ -62,6 +80,11 @@
             return deferred.promise;
         }
 
+        /**
+         * Service function to update selected expense
+         * @param expense
+         * @returns {*|promise}
+         */
         function updateExpense(expense) {
             var deferred = $q.defer();
             $http.put('/api/expenses/' + expense._id, expense)
@@ -74,6 +97,11 @@
             return deferred.promise;
         }
 
+        /**
+         * Service funciton for deleting selected expense
+         * @param _id
+         * @returns {*|promise}
+         */
         function deleteExpense(_id) {
             var deferred = $q.defer();
             $http.delete('/api/expenses/' + _id)
