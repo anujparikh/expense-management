@@ -45,7 +45,8 @@ function fetchExpenseBasedOnRole(req, res) {
  * @param res - response
  */
 function addExpense(req, res) {
-    expenseService.addExpense(req.user.sub, req.user.username, req.body)
+    var username = req.body.username ? req.body.username : req.user.username;
+    expenseService.addExpense(username, req.body)
         .then(function () {
             res.sendStatus(200);
         })

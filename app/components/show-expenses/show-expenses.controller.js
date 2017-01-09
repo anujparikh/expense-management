@@ -88,6 +88,7 @@
         };
 
         vm.cancel = function () {
+            vm.isUpdate = false;
             vm.showUpdateForm = !vm.showUpdateForm;
             vm.expense = {};
         };
@@ -119,6 +120,8 @@
         vm.deleteExpense = function (_id) {
             ExpenseService.deleteExpense(_id)
                 .then(function () {
+                    vm.expense = {};
+                    vm.isUpdate = false;
                     vm.fetchExpenses(vm.tableState);
                     vm.error = false;
                 })

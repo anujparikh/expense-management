@@ -15,23 +15,29 @@ service.deleteExpense = deleteExpense;
 
 /**
  * Add Expense
- * @param currentUserId
- * @param currentUserName
+ * @param username
  * @param expenseParam
  * @returns {*|promise}
  */
-function addExpense(currentUserId, currentUserName, expenseParam) {
+function addExpense(username, expenseParam) {
     var deferred = Q.defer();
-    var newExpense = new Expense({
-        description: expenseParam.description,
-        amount: expenseParam.amount,
-        user: currentUserId,
-        username: currentUserName,
-        comment: expenseParam.comment
-    });
-    newExpense.save(function (err) {
-        if (err) deferred.reject('An error while adding expense');
-        deferred.resolve();
+    User.findOne({username: username}, function (err, user) {
+        if (err) deferred.reject('Invalid username entered');
+        if (user) {
+            var newExpense = new Expense({
+                description: expenseParam.description,
+                amount: expenseParam.amount,
+                user: user._id,
+                username: username,
+                comment: expenseParam.comment
+            });
+            newExpense.save(function (err) {
+                if (err) deferred.reject('An error while adding expense');
+                deferred.resolve();
+            });
+        } else {
+            deferred.reject('Invalid username entered');
+        }
     });
 
     return deferred.promise;
