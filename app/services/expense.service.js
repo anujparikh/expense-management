@@ -3,16 +3,15 @@
 
     angular
         .module('app')
-        .factory('ExpenseService', ExpenseService);
+        .service('ExpenseService', ExpenseService);
 
     function ExpenseService($http, $q, $filter) {
-        var service = {};
 
-        service.addExpense = addExpense;
-        service.getAllExpenses = getAllExpenses;
-        service.getAllExpensesWithTimeFrame = getAllExpensesWithTimeFrame;
-        service.updateExpense = updateExpense;
-        service.deleteExpense = deleteExpense;
+        this.addExpense = addExpense;
+        this.getAllExpenses = getAllExpenses;
+        this.getAllExpensesWithTimeFrame = getAllExpensesWithTimeFrame;
+        this.updateExpense = updateExpense;
+        this.deleteExpense = deleteExpense;
 
         /**
          * Add new Expense service function
@@ -113,7 +112,5 @@
                 });
             return deferred.promise;
         }
-
-        return service;
     }
 }());

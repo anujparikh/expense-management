@@ -3,16 +3,16 @@
 
     angular
         .module('app')
-        .factory('UserService', UserService);
+        .service('UserService', UserService);
 
     function UserService($http, $q, $filter) {
         var service = {};
 
-        service.fetchCurrentUser = fetchCurrentUser;
-        service.fetchAllUsers = fetchAllUsers;
-        service.addUser = addUser;
-        service.updateUser = updateUser;
-        service.deleteUser = deleteUser;
+        this.fetchCurrentUser = fetchCurrentUser;
+        this.fetchAllUsers = fetchAllUsers;
+        this.addUser = addUser;
+        this.updateUser = updateUser;
+        this.deleteUser = deleteUser;
 
         /**
          * Service function to fetch current user
@@ -115,7 +115,5 @@
                 });
             return deferred.promise;
         }
-
-        return service;
     }
 })();
